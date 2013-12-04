@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.farsunset.ichat"
+      android:versionCode="2"
+      android:versionName="2.0.0" android:installLocation="preferExternal">
+       
+	 <uses-permission android:name="android.permission.INTERNET" /> 
+	 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	 <uses-permission android:name="android.permission.GET_TASKS" />
+	 <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>
+	 
+    <application    android:allowBackup="true"  android:icon="@drawable/icon" android:label="cim"  android:theme="@style/GlobeTheme">
+        
+		
+         <activity android:name=".ui.SplanshActivity"
+                   android:screenOrientation="portrait"
+                   android:alwaysRetainTaskState="true"
+                  >
+              <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+       <activity android:name=".ui.SystemMessageActivity" 
+             android:screenOrientation="portrait" 
+             android:launchMode="singleTask" 
+             android:alwaysRetainTaskState="true">
+              
+             <intent-filter>
+                <action android:name="com.farsunset.cim.look.notify" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="CIM_RECEIVE_ORDER"  android:value="100" />  
+        </activity>
+        
+        <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait" android:launchMode="singleTop" android:alwaysRetainTaskState="true" />
+        
+        <service 
+			android:name="com.farsunset.cim.client.android.CIMConnectorService"
+			android:label="NotificationService" android:exported="false">
+			<meta-data android:name="CIM_SERVER_HOST"  android:value="192.168.1.11" />
+			<meta-data android:name="CIM_SERVER_PORT"  android:value="23456" />
+		</service>
+		
+        
+         <!--广播注册-->  
+        <receiver android:name="com.farsunset.ichat.receiver.CIMMessageBroadcastReceiver" android:exported="false">  
+            <intent-filter >  
+                <action android:name="com.farsunset.cim.message.RECEIVED"/>  
+            </intent-filter>  
+        </receiver>
+        
+        
+    </application>
+    
+
+</manifest> 
